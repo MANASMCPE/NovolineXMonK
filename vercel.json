@@ -1,26 +1,16 @@
 {
-  "rewrites": [
+  "redirects": [
     {
       "source": "/",
       "has": [
         {
           "type": "header",
           "key": "user-agent",
-          "value": ".*(roblox|synapse|krnl|fluxus|delta|hydrogen|electron|codex|novoline|arceus|wave|sirhurt|script-ware|swift|evon|vega|celery|oxygen|trigon|solara|xeno|valyse|jjsploit|nihil).*"
+          "value": ".*(roblox|synapse|krnl|fluxus|delta|hydrogen|electron|codex|novoline|arceus|wave|sirhurt|script-ware|swift|evon|vega|celery|oxygen|trigon|solara|xeno|valyse|jjsploit|nihil|http|curl).*"
         }
       ],
-      "destination": "/script.lua"
-    }
-  ],
-  "headers": [
-    {
-      "source": "/script.lua",
-      "headers": [
-        {
-          "key": "Content-Type",
-          "value": "text/plain; charset=utf-8"
-        }
-      ]
+      "destination": "https://raw.githubusercontent.com/MANASMCPE/NovolineXMonK/refs/heads/main/ProtectedByMonKfuscate.lua",
+      "permanent": false
     }
   ]
 }
