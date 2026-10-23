@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>MonK</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#08080c;
+    --border:rgba(139,92,246,.22);
+    --text:#e6e6f0;
+    --muted:#7c7c8f;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:'Inter',system-ui,-apple-system,sans-serif;
+    display:flex;align-items:center;justify-content:center;
+    padding:28px 18px;min-height:100vh;overflow-x:hidden;
+    -webkit-font-smoothing:antialiased;
+  }
+  body::before{
+    content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
+    background:
+      radial-gradient(700px 500px at 50% -10%, rgba(139,92,246,.20), transparent 70%),
+      radial-gradient(500px 400px at 15% 110%, rgba(99,102,241,.12), transparent 70%),
+      radial-gradient(500px 400px at 85% 110%, rgba(34,211,238,.08), transparent 70%);
+  }
+  body::after{
+    content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
+    background-image:linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px),
+                     linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px);
+    background-size:48px 48px;
+    mask-image:radial-gradient(circle at 50% 30%, #000 0%, transparent 75%);
+    -webkit-mask-image:radial-gradient(circle at 50% 30%, #000 0%, transparent 75%);
+  }
+  .wrap{position:relative;z-index:1;width:100%;max-width:700px}
+  .brand{text-align:center;margin-bottom:26px}
+  .logo{
+    font-size:60px;font-weight:800;letter-spacing:-3px;line-height:1;
+    background:linear-gradient(120deg,#c084fc 0%,#8b5cf6 35%,#6366f1 65%,#22d3ee 100%);
+    -webkit-background-clip:text;background-clip:text;
+    -webkit-text-fill-color:transparent;color:transparent;
+    filter:drop-shadow(0 0 26px rgba(139,92,246,.45));
+  }
+  .tag{
+    margin-top:10px;font-size:12.5px;letter-spacing:.35em;text-transform:uppercase;
+    color:var(--muted);font-weight:500;
+  }
+  .card{
+    background:linear-gradient(180deg, rgba(20,20,32,.92), rgba(10,10,16,.96));
+    border:1px solid var(--border);border-radius:16px;overflow:hidden;
+    box-shadow:0 0 0 1px rgba(255,255,255,.02) inset,
+               0 20px 60px -20px rgba(0,0,0,.9),
+               0 0 70px -20px rgba(139,92,246,.35);
+    backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+  }
+  .card-top{
+    display:flex;align-items:center;gap:10px;padding:13px 18px;
+    border-bottom:1px solid rgba(255,255,255,.05);
+    background:rgba(255,255,255,.015);
+  }
+  .dots{display:flex;gap:6px}
+  .dots i{width:10px;height:10px;border-radius:50%;display:block}
+  .dots i:nth-child(1){background:#ff5f57}
+  .dots i:nth-child(2){background:#febc2e}
+  .dots i:nth-child(3){background:#28c840}
+  .status{
+    margin-left:auto;display:inline-flex;align-items:center;gap:6px;
+    font-size:10.5px;font-weight:600;letter-spacing:.08em;
+    padding:4px 10px;border-radius:999px;
+    border:1px solid rgba(255,255,255,.08);color:var(--muted);
+    transition:.2s ease;
+  }
+  .status.ok{color:#4ade80;border-color:rgba(34,197,94,.35);background:rgba(34,197,94,.08)}
+  .status .dot{width:6px;height:6px;border-radius:50%;background:currentColor;box-shadow:0 0 8px currentColor}
+  .card-label{
+    font-family:'JetBrains Mono',monospace;font-size:11px;
+    letter-spacing:.18em;text-transform:uppercase;color:var(--muted);
+  }
+  pre{
+    margin:0;padding:20px;font-family:'JetBrains Mono',monospace;
+    font-size:13.5px;line-height:1.75;color:#c9c9e0;
+    max-height:460px;overflow:auto;
+    white-space:pre-wrap;overflow-wrap:break-word;tab-size:2;
+  }
+  pre::-webkit-scrollbar{width:8px;height:8px}
+  pre::-webkit-scrollbar-thumb{background:rgba(139,92,246,.35);border-radius:8px}
+  pre::-webkit-scrollbar-track{background:transparent}
+  .card-bottom{
+    display:flex;align-items:center;justify-content:space-between;gap:12px;
+    padding:14px 18px;border-top:1px solid rgba(255,255,255,.05);
+    background:rgba(255,255,255,.015);
+  }
+  .hint{font-size:12px;color:var(--muted)}
+  button{
+    font-family:inherit;font-size:12.5px;font-weight:600;letter-spacing:.03em;
+    padding:9px 20px;border-radius:9px;border:1px solid rgba(139,92,246,.4);
+    background:linear-gradient(180deg, rgba(139,92,246,.22), rgba(99,102,241,.14));
+    color:#ddd6fe;cursor:pointer;transition:.18s ease;white-space:nowrap;
+  }
+  button:hover{
+    border-color:rgba(139,92,246,.75);
+    box-shadow:0 0 22px -4px rgba(139,92,246,.55);
+    transform:translateY(-1px);
+  }
+  button:active{transform:translateY(0)}
+  button.copied{color:#4ade80;border-color:rgba(34,197,94,.6)}
+  .footer{text-align:center;margin-top:22px;font-size:11.5px;color:#4a4a5c;letter-spacing:.1em}
+  @media (max-width:520px){
+    .logo{font-size:44px}
+    pre{font-size:12px;padding:16px}
+    .hint{font-size:11px}
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <div class="brand">
+    <div class="logo">MonK</div>
+    <div class="tag">Premium Script Loader</div>
+  </div>
+
+  <div class="card">
+    <div class="card-top">
+      <div class="dots"><i></i><i></i><i></i></div>
+      <span class="status" id="status"><span class="dot"></span><span id="status-text">Protected</span></span>
+      <span class="card-label" id="label">loadstring</span>
+    </div>
+
+    <pre><code id="code"></code></pre>
+
+    <div class="card-bottom">
+      <span class="hint" id="hint">Loading…</span>
+      <button id="copy">Copy</button>
+    </div>
+  </div>
+
+  <div class="footer">MonK &copy; 2025 — All rights reserved</div>
+</div>
+
+<!-- ============================================================
+     YAHAN APNA PURA SCRIPT PASTE KARO (executor users ko dikhega)
+     Note: is block ke andar "</script>" mat likhna
+     ============================================================ -->
+<script type="text/plain" id="full-script">
+loadstring(game:HttpGet("https://raw.githubusercontent.com/MANASMCPE/NovolineXMonK/refs/heads/main/ProtectedByMonKfuscate.lua"))()
+</script>
+(function () {
+  // 👉 apna Vercel domain yahan daalo
+  const LOADSTRING = 'loadstring(game:HttpGet("https://monk.vercel.app/monk.lua"))()';
+
+  function detectExecutor() {
+    try {
+      var ua = (navigator.userAgent || "").toLowerCase();
+      var uaKeys = [
+        "roblox", "synapse", "krnl", "fluxus", "delta", "hydrogen",
+        "electron", "codex", "novoline", "arceus", "wave", "sirhurt",
+        "script-ware", "swift", "evon", "vega", "celery", "oxygen",
+        "trigon", "solara", "xeno", "valyse", "jjsploit", "nihil"
+      ];
+      for (var i = 0; i < uaKeys.length; i++) {
+        if (ua.indexOf(uaKeys[i]) !== -1) return true;
+      }
+
+      var jsGlobals = [
+        "getgenv", "syn", "http_request", "identifyexecutor",
+        "getexecutorname", "getcustomasset", "readfile", "writefile",
+        "hookfunction", "islclosure", "getrawmetatable"
+      ];
+      for (var j = 0; j < jsGlobals.length; j++) {
+        if (typeof window[jsGlobals[j]] !== "undefined") return true;
+      }
+    } catch (e) {}
+    return false;
+  }
+
+  var codeEl     = document.getElementById("code");
+  var labelEl    = document.getElementById("label");
+  var statusEl   = document.getElementById("status");
+  var statusText = document.getElementById("status-text");
+  var hintEl     = document.getElementById("hint");
+  var fullEl     = document.getElementById("full-script");
+
+  // ?mode=script se owner test kar sakta hai
+  var unlocked = detectExecutor() || location.search.indexOf("mode=script") !== -1;
+
+  if (unlocked) {
+    codeEl.textContent = fullEl.textContent.trim();
+    labelEl.textContent = "full script";
+    statusEl.classList.add("ok");
+    statusText.textContent = "Executor Detected";
+    hintEl.textContent = "Full source unlocked — copy & run in executor.";
+  } else {
+    codeEl.textContent = LOADSTRING;
+    labelEl.textContent = "loadstring";
+    statusText.textContent = "Protected";
+    hintEl.textContent = "Executor me open karo, full script auto-unlock ho jayega.";
+  }
+
+  // Copy button
+  document.getElementById("copy").addEventListener("click", function () {
+    var btn = this;
+    var text = codeEl.textContent;
+
+    function done() {
+      btn.classList.add("copied");
+      var old = btn.textContent;
+      btn.textContent = "Copied!";
+      setTimeout(function () {
+        btn.classList.remove("copied");
+        btn.textContent = old;
+      }, 1500);
+    }
+
+    function fallback() {
+      var ta = document.createElement("textarea");
+      ta.value = text;
+      ta.style.position = "fixed";
+      ta.style.opacity = "0";
+      document.body.appendChild(ta);
+      ta.select();
+      try { document.execCommand("copy"); done(); } catch (e) {}
+      document.body.removeChild(ta);
+    }
+
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(done).catch(fallback);
+    } else {
+      fallback();
+    }
+  });
+})();
+</script>
+
+</body>
+</html>
