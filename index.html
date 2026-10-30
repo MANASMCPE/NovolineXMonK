@@ -6,20 +6,22 @@
   <title>MONK — Premium Script Hub</title>
   <meta name="description" content="MONK is a premium Roblox script hub with exclusive scripts, instant updates, and a trusted loader." />
   <meta name="theme-color" content="#050506" />
+  <!-- FAVICON -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%23ff5c70'/><text x='50' y='72' font-size='60' font-family='Montserrat,sans-serif' font-weight='800' text-anchor='middle' fill='%230a0a0c'>M</text></svg>" />
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+
+  <!-- FULL-PAGE LOADING SCREEN -->
+  <div id="page-loader">
+    <div class="spinner"></div>
+    <div class="load-text">Loading MONK...</div>
+  </div>
 
   <div class="glows">
     <span class="r"></span>
     <span class="b"></span>
     <span class="p"></span>
-  </div>
-
-  <div id="loader">
-    <div class="spinner"></div>
-    <p>Loading Open Source...</p>
-    <p class="sub">Fetching the good stuff</p>
   </div>
 
   <div id="toast">
@@ -48,6 +50,7 @@
       <h1>Make it <em>yours.</em><br>Premium Scripts Hub</h1>
       <p>Exclusive Roblox scripts, instant updates, and a loader that just works. Unlock your full potential with MONK.</p>
 
+      <!-- ONLY 3 BUTTONS -->
       <div class="btn-group">
         <a href="/buy" class="btn btn-primary">
           <i class="fas fa-crown"></i> Buy Premium
@@ -60,7 +63,6 @@
         </button>
       </div>
 
-      <!-- Novoline-style loadstring -->
       <div class="code-block">
         <code>loadstring(game:HttpGet(<span class="str">"https://monk-scripts-novoline-loaderlua.vercel.app/"</span>))()</code>
         <button class="code-copy" onclick="copyCode(this)">Copy</button>
@@ -88,9 +90,16 @@
 
   <script src="script.js"></script>
   <script>
+    // LOADING SCREEN
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        document.getElementById('page-loader').classList.add('hide');
+      }, 1200);
+    });
+
     function openSource() {
-      const loader = document.getElementById('loader');
-      loader.classList.add('active');
+      const loader = document.getElementById('page-loader');
+      loader.classList.remove('hide');
       setTimeout(() => { window.location.href = '/source'; }, 2200);
     }
 

@@ -9,7 +9,7 @@ function startBuyRedirect(btn) {
 
   const toast = document.getElementById('toast');
   const timerEl = document.getElementById('timer');
-  if (!toast) return;
+  if (!toast || !timerEl) return;
 
   let seconds = 10;
   timerEl.textContent = seconds;
@@ -44,6 +44,5 @@ function redirectInstagram() {
   }
   const toast = document.getElementById('toast');
   if (toast) toast.classList.remove('show');
-
   window.location.href = INSTAGRAM_URL;
 }
