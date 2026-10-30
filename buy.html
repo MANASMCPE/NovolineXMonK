@@ -3,58 +3,67 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Buy Premium Scripts — MONK</title>
+  <title>Store — MONK Premium Scripts</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-  <div id="toast">
-    <i class="fas fa-exclamation-triangle toast-icon"></i>
-    <span class="toast-text">Redirecting to Admin in <span class="toast-timer" id="timer">10</span>s</span>
+  <div class="glows">
+    <span class="r"></span>
+    <span class="b"></span>
+    <span class="p"></span>
   </div>
 
-  <div class="container">
-    <header>
-      <a href="/" class="logo">
+  <div id="toast">
+    <i class="fas fa-exclamation-triangle toast-icon"></i>
+    <span class="toast-text">Redirecting to Admin<small>Please wait...</small></span>
+    <span class="toast-timer" id="timer">10</span>
+  </div>
+
+  <div class="wrap">
+    <nav>
+      <a href="/" class="brand">
         <svg viewBox="0 0 64 64" fill="none">
-          <rect x="4" y="4" width="56" height="56" rx="14" stroke="#f5c542" stroke-width="3"/>
-          <path d="M20 44V20L32 34L44 20V44" stroke="#f5c542" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+          <rect x="4" y="4" width="56" height="56" rx="16" stroke="#ff5c70" stroke-width="3"/>
+          <path d="M20 44V20L32 34L44 20V44" stroke="#ff5c70" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
-        MONK
+        MONK<span class="accent">.</span>
       </a>
-      <nav>
+      <div class="nav-links">
         <a href="/">Home</a>
-        <a href="#" onclick="redirectInstagram(); return false;">Contact Admin</a>
-      </nav>
-    </header>
-
-    <section class="hero" style="padding-bottom: 20px;">
-      <h1>Premium <span>Scripts</span></h1>
-      <p>Choose your script and unlock its full potential.</p>
-    </section>
-
-    <!-- MONKzV1 Premium Special Card -->
-    <div class="card" style="border-color: var(--gold); background: linear-gradient(135deg, rgba(245,197,66,0.08), transparent); margin-bottom: 30px;">
-      <div class="title" style="font-size: 1.4rem;">
-        <i class="fas fa-gem" style="color: var(--gold);"></i> MONKzV1 PREMIUM
-        <span class="badge featured">BEST VALUE</span>
+        <a href="#" onclick="redirectInstagram(); return false;">Admin</a>
       </div>
-      <p class="desc">The ultimate all-in-one premium package. Includes every script, priority updates, and direct admin support.</p>
-      <div class="price">$20 <span style="font-size: 0.9rem; color: var(--text-dim); font-weight: 400;">/ lifetime</span></div>
-      <button class="btn btn-primary" onclick="startBuyRedirect(this)">
-        <i class="fas fa-shopping-cart"></i> Buy Now
-      </button>
+    </nav>
+
+    <div class="store-head">
+      <h2>Premium <em>Scripts</em></h2>
+      <p>Choose your script and unlock its full potential.</p>
     </div>
 
-    <div id="scripts-container" class="grid">
-      <div class="card" style="text-align: center; color: var(--text-dim);">
-        <i class="fas fa-spinner fa-spin" style="font-size: 2rem; margin-bottom: 12px;"></i>
+    <!-- Featured MONKzV1 -->
+    <div class="featured-card">
+      <div class="fc-icon"><i class="fas fa-gem"></i></div>
+      <div class="fc-body">
+        <h3>MONKzV1 PREMIUM <span class="badge">BEST VALUE</span></h3>
+        <p>The ultimate all-in-one package. Includes every script, priority updates, and direct admin support.</p>
+      </div>
+      <div class="fc-price">
+        <div class="amount">$19.99 <small>lifetime</small></div>
+        <button class="btn btn-primary" onclick="startBuyRedirect(this)">
+          <i class="fas fa-shopping-cart"></i> Buy Now
+        </button>
+      </div>
+    </div>
+
+    <div id="scripts-container" class="product-grid">
+      <div class="product" style="grid-column: 1/-1; text-align: center; color: var(--dim);">
+        <i class="fas fa-spinner fa-spin" style="font-size: 1.6rem; margin-bottom: 10px;"></i>
         <p>Loading scripts...</p>
       </div>
     </div>
 
-    <div style="text-align: center; margin: 40px 0;">
-      <button class="btn btn-danger" onclick="redirectInstagram()">
+    <div style="text-align: center; margin: 30px 0 60px;">
+      <button class="btn btn-ghost" onclick="redirectInstagram()">
         <i class="fab fa-instagram"></i> Contact Admin
       </button>
     </div>
@@ -64,40 +73,42 @@
   <script>
     const SCRIPTS_URL = 'https://raw.githubusercontent.com/MANASMCPE/M0NK-hub/main/data/scripts.json';
     const container = document.getElementById('scripts-container');
-    const SCRIPT_PRICE = '$5';
+    const SCRIPT_PRICE = '$4.99';
 
     fetch(SCRIPTS_URL)
       .then(res => res.json())
       .then(data => {
         container.innerHTML = '';
         data.scripts.forEach(script => {
-          const card = document.createElement('div');
-          card.className = 'card script-card';
-          card.innerHTML = `
-            <div class="title">
-              ${script.title}
-              ${script.featured ? '<span class="badge featured">Featured</span>' : ''}
+          const el = document.createElement('div');
+          el.className = 'product';
+          el.innerHTML = `
+            <div class="product-top">
+              <div class="product-icon"><i class="fas fa-file-code"></i></div>
+              ${script.featured ? '<span class="product-badge featured">Featured</span>' : ''}
             </div>
-            <span class="badge cat">${script.category}</span>
-            <p class="desc">${script.description.replace(/\n/g, '<br>')}</p>
-            <div class="meta">
+            <div class="product-cat">${script.category}</div>
+            <h3>${script.title}</h3>
+            <p class="product-desc">${script.description.replace(/\n/g, ' ')}</p>
+            <div class="product-meta">
               <span><i class="fas fa-tag"></i> ${script.version}</span>
               <span><i class="fas fa-hdd"></i> ${script.size}</span>
               <span><i class="fas fa-calendar"></i> ${script.updated}</span>
             </div>
-            <div class="price">${SCRIPT_PRICE}</div>
-            <button class="btn btn-primary" onclick="startBuyRedirect(this)">
-              <i class="fas fa-shopping-cart"></i> Buy Now
-            </button>
+            <div class="product-footer">
+              <div class="product-price">${SCRIPT_PRICE}</div>
+              <button class="btn btn-primary" onclick="startBuyRedirect(this)">
+                <i class="fas fa-shopping-cart"></i> Buy
+              </button>
+            </div>
           `;
-          container.appendChild(card);
+          container.appendChild(el);
         });
       })
-      .catch(err => {
-        container.innerHTML = `<div class="card" style="grid-column: 1/-1; text-align: center; color: var(--danger);">
-          <i class="fas fa-exclamation-circle"></i> Failed to load scripts. Please try again later.
+      .catch(() => {
+        container.innerHTML = `<div class="product" style="grid-column:1/-1;text-align:center;color:var(--rose);">
+          <i class="fas fa-exclamation-circle"></i> Failed to load scripts. Try again later.
         </div>`;
-        console.error(err);
       });
   </script>
 </body>

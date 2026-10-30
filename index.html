@@ -3,68 +3,85 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>MONK — Premium Scripts</title>
+  <title>MONK — Premium Script Hub</title>
+  <meta name="description" content="MONK is a premium Roblox script hub with exclusive scripts, instant updates, and a trusted loader." />
+  <meta name="theme-color" content="#050506" />
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
+  <div class="glows">
+    <span class="r"></span>
+    <span class="b"></span>
+    <span class="p"></span>
+  </div>
+
   <div id="loader">
     <div class="spinner"></div>
     <p>Loading Open Source...</p>
+    <p class="sub">Fetching the good stuff</p>
   </div>
 
   <div id="toast">
     <i class="fas fa-exclamation-triangle toast-icon"></i>
-    <span class="toast-text">Redirecting to Admin in <span class="toast-timer" id="timer">10</span>s</span>
+    <span class="toast-text">Redirecting to Admin<small>Please wait...</small></span>
+    <span class="toast-timer" id="timer">10</span>
   </div>
 
-  <div class="container">
-    <header>
-      <a href="/" class="logo">
+  <div class="wrap">
+    <nav>
+      <a href="/" class="brand">
         <svg viewBox="0 0 64 64" fill="none">
-          <rect x="4" y="4" width="56" height="56" rx="14" stroke="#f5c542" stroke-width="3"/>
-          <path d="M20 44V20L32 34L44 20V44" stroke="#f5c542" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+          <rect x="4" y="4" width="56" height="56" rx="16" stroke="#ff5c70" stroke-width="3"/>
+          <path d="M20 44V20L32 34L44 20V44" stroke="#ff5c70" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
-        MONK
+        MONK<span class="accent">.</span>
       </a>
-      <nav>
-        <a href="/buy">Scripts</a>
-        <a href="#" onclick="redirectInstagram(); return false;">Contact Admin</a>
-      </nav>
-    </header>
+      <div class="nav-links">
+        <a href="/buy">Store</a>
+        <a href="#" onclick="redirectInstagram(); return false;">Admin</a>
+      </div>
+    </nav>
 
     <section class="hero">
-      <h1>Unlock <span>Premium</span> Power</h1>
-      <p>High-quality Roblox scripts, meticulously modified and maintained by MONK. Elevate your gameplay today.</p>
+      <div class="hero-badge"><span class="dot"></span> Trusted by 10K+ Users</div>
+      <h1>Make it <em>yours.</em><br>Premium Scripts Hub</h1>
+      <p>Exclusive Roblox scripts, instant updates, and a loader that just works. Unlock your full potential with MONK.</p>
 
       <div class="btn-group">
-        <button class="btn btn-primary" onclick="openSource()">
-          <i class="fas fa-code"></i> Open Source
-        </button>
-        <a href="/buy" class="btn btn-secondary">
+        <a href="/buy" class="btn btn-primary">
           <i class="fas fa-crown"></i> Buy Premium
         </a>
-        <a href="/buy?monkz=1" class="btn btn-secondary">
-          <i class="fas fa-gem"></i> MONKzV1 Premium
-        </a>
-        <button class="btn btn-danger" onclick="redirectInstagram()">
+        <button class="btn btn-secondary" onclick="openSource()">
+          <i class="fas fa-code"></i> Open Source
+        </button>
+        <button class="btn btn-ghost" onclick="redirectInstagram()">
           <i class="fab fa-instagram"></i> Contact Admin
         </button>
       </div>
+
+      <!-- Novoline-style loadstring -->
+      <div class="code-block">
+        <code>loadstring(game:HttpGet(<span class="str">"https://monk-scripts-novoline-loaderlua.vercel.app/"</span>))()</code>
+        <button class="code-copy" onclick="copyCode(this)">Copy</button>
+      </div>
     </section>
 
-    <section class="grid" style="margin-top: 20px;">
-      <div class="card">
-        <div class="title"><i class="fas fa-shield-halved" style="color:var(--gold);"></i> Trusted Loader</div>
-        <p class="desc">All scripts run through our proprietary loader for maximum security and stability.</p>
+    <section class="features">
+      <div class="feature">
+        <div class="feature-icon"><i class="fas fa-bolt"></i></div>
+        <h3>Instant Delivery</h3>
+        <p>Scripts are delivered instantly after purchase. No waiting, no delays — jump straight into the game.</p>
       </div>
-      <div class="card">
-        <div class="title"><i class="fas fa-bolt" style="color:var(--gold);"></i> Instant Updates</div>
-        <p class="desc">Scripts are updated regularly to ensure they work with the latest game versions.</p>
+      <div class="feature">
+        <div class="feature-icon"><i class="fas fa-shield-halved"></i></div>
+        <h3>Trusted Loader</h3>
+        <p>All scripts run through our proprietary loader, verified for safety and stability across major executors.</p>
       </div>
-      <div class="card">
-        <div class="title"><i class="fas fa-headset" style="color:var(--gold);"></i> 24/7 Support</div>
-        <p class="desc">Need help? Contact the admin directly via Instagram for fast support.</p>
+      <div class="feature">
+        <div class="feature-icon"><i class="fas fa-rotate"></i></div>
+        <h3>Daily Updates</h3>
+        <p>Scripts are updated regularly to keep up with the latest Roblox patches. You'll never be left behind.</p>
       </div>
     </section>
   </div>
@@ -74,9 +91,15 @@
     function openSource() {
       const loader = document.getElementById('loader');
       loader.classList.add('active');
-      setTimeout(() => {
-        window.location.href = '/source';
-      }, 2500);
+      setTimeout(() => { window.location.href = '/source'; }, 2200);
+    }
+
+    function copyCode(btn) {
+      const code = document.querySelector('.code-block code').innerText;
+      navigator.clipboard.writeText(code).then(() => {
+        btn.textContent = 'Copied!';
+        setTimeout(() => { btn.textContent = 'Copy'; }, 1500);
+      });
     }
   </script>
 </body>
