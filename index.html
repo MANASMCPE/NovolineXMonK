@@ -1,338 +1,83 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MonK</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --bg: #030005;
-            --text: #ffffff;
-            --primary-red: #ff2a2a;
-            --primary-purple: #a855f7;
-            --card-bg: rgba(15, 5, 20, 0.6);
-            --border: rgba(255, 42, 42, 0.2);
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            background-color: var(--bg);
-            color: var(--text);
-            font-family: 'Inter', sans-serif;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-            position: relative;
-        }
-
-        /* =========================================
-           LIQUID FLUID BACKGROUND (SIRF NORMAL LOGO KE LIYE)
-           ========================================= */
-        .liquid-bg {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            z-index: -1;
-            overflow: hidden;
-            background: #000;
-        }
-
-        .blob {
-            position: absolute;
-            filter: blur(80px);
-            border-radius: 50%;
-            opacity: 0.7;
-            animation: float 12s infinite alternate ease-in-out;
-        }
-
-        .blob-1 {
-            top: -10%; left: -10%;
-            width: 500px; height: 500px;
-            background: radial-gradient(circle, var(--primary-red) 0%, transparent 70%);
-            animation-duration: 10s;
-        }
-
-        .blob-2 {
-            bottom: -20%; right: -10%;
-            width: 600px; height: 600px;
-            background: radial-gradient(circle, var(--primary-purple) 0%, transparent 70%);
-            animation-duration: 14s;
-            animation-delay: -5s;
-        }
-
-        .blob-3 {
-            top: 40%; left: 40%;
-            width: 300px; height: 300px;
-            background: radial-gradient(circle, #ff007f 0%, transparent 70%);
-            animation-duration: 8s;
-            animation-delay: -2s;
-        }
-
-        @keyframes float {
-            0% { transform: translate(0, 0) scale(1); }
-            50% { transform: translate(50px, 30px) scale(1.1); }
-            100% { transform: translate(-30px, -50px) scale(0.9); }
-        }
-
-        /* =========================================
-           NORMAL USER UI
-           ========================================= */
-        #normal-ui {
-            width: 100%;
-            max-width: 600px;
-            padding: 20px;
-            z-index: 10;
-            display: block;
-        }
-
-        .header {
-            text-align: center;
-            margin-bottom: 30px;
-            animation: fadeIn 1s ease-out;
-        }
-
-        .logo {
-            font-size: 4rem;
-            font-weight: 800;
-            letter-spacing: -2px;
-            background: linear-gradient(135deg, #ff2a2a, #a855f7);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            filter: drop-shadow(0 0 20px rgba(168, 85, 247, 0.5));
-        }
-
-        .card {
-            background: var(--card-bg);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.8), 0 0 40px rgba(255, 42, 42, 0.1) inset;
-            overflow: hidden;
-            animation: slideUp 0.8s ease-out;
-        }
-
-        .card-top {
-            padding: 15px 20px;
-            border-bottom: 1px solid var(--border);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: rgba(0, 0, 0, 0.3);
-        }
-
-        .status {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            color: #4ade80;
-            padding: 5px 12px;
-            background: rgba(74, 222, 128, 0.1);
-            border: 1px solid rgba(74, 222, 128, 0.3);
-            border-radius: 20px;
-        }
-
-        .dot {
-            width: 6px; height: 6px;
-            background: #4ade80;
-            border-radius: 50%;
-            box-shadow: 0 0 10px #4ade80;
-        }
-
-        .code-box {
-            padding: 25px 20px;
-            background: rgba(0, 0, 0, 0.5);
-        }
-
-        pre {
-            margin: 0;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.95rem;
-            color: #d8b4e2;
-            white-space: pre-wrap;
-            word-wrap: break-word;
-            line-height: 1.6;
-        }
-
-        .card-bottom {
-            padding: 15px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-top: 1px solid var(--border);
-            background: rgba(0, 0, 0, 0.3);
-        }
-
-        .hint {
-            font-size: 0.85rem;
-            color: #a1a1aa;
-        }
-
-        .copy-btn {
-            background: linear-gradient(135deg, #ff2a2a, #a855f7);
-            color: white;
-            border: none;
-            padding: 10px 25px;
-            border-radius: 8px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 5px 15px rgba(255, 42, 42, 0.3);
-        }
-
-        .copy-btn:hover {
-            transform: translateY(-2px) scale(1.05);
-            box-shadow: 0 8px 25px rgba(168, 85, 247, 0.5);
-        }
-
-        .copy-btn.copied {
-            background: #4ade80;
-            box-shadow: 0 5px 15px rgba(74, 222, 128, 0.4);
-        }
-
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        @keyframes slideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
-
-        /* =========================================
-           EXECUTOR RAW UI (Jab Executor aaye tab ye dikhega)
-           ========================================= */
-        #executor-ui {
-            display: none; /* Default me chhupa hua hai */
-            width: 100%;
-            padding: 20px;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 14px;
-            color: #00ff00; /* Raw green text for executor */
-            background: #000;
-            white-space: pre-wrap;
-            word-wrap: break-word;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MONK — Premium Scripts</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-    <!-- NORMAL USER BACKGROUND (Fluid Liquid) -->
-    <div class="liquid-bg" id="liquidBg">
-        <div class="blob blob-1"></div>
-        <div class="blob blob-2"></div>
-        <div class="blob blob-3"></div>
-    </div>
+  <div id="loader">
+    <div class="spinner"></div>
+    <p>Loading Open Source...</p>
+  </div>
 
-    <!-- NORMAL USER UI -->
-    <div id="normal-ui">
-        <div class="header">
-            <div class="logo">MonK</div>
-        </div>
+  <div id="toast">
+    <i class="fas fa-exclamation-triangle toast-icon"></i>
+    <span class="toast-text">Redirecting to Admin in <span class="toast-timer" id="timer">10</span>s</span>
+  </div>
 
-        <div class="card">
-            <div class="card-top">
-                <span class="status"><span class="dot"></span> System Online</span>
-                <span style="color: #a1a1aa; font-size: 0.8rem; font-weight: 600;">Normal user</span>
-            </div>
-            
-            <div class="code-box">
-                <!-- Yahan Normal user ko loader wali line dikhegi -->
-                <pre><code id="normal-code">loadstring(game:HttpGet("https://monk-scripts-novoline-loaderlua.vercel.app/"))()</code></pre>
-            </div>
+  <div class="container">
+    <header>
+      <a href="/" class="logo">
+        <svg viewBox="0 0 64 64" fill="none">
+          <rect x="4" y="4" width="56" height="56" rx="14" stroke="#f5c542" stroke-width="3"/>
+          <path d="M20 44V20L32 34L44 20V44" stroke="#f5c542" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        MONK
+      </a>
+      <nav>
+        <a href="/buy">Scripts</a>
+        <a href="#" onclick="redirectInstagram(); return false;">Contact Admin</a>
+      </nav>
+    </header>
 
-            <div class="card-bottom">
-                <span class="hint">Join our loader for premium scripts.</span>
-                <button class="copy-btn" id="copy-btn">Copy Script</button>
-            </div>
-        </div>
-    </div>
+    <section class="hero">
+      <h1>Unlock <span>Premium</span> Power</h1>
+      <p>High-quality Roblox scripts, meticulously modified and maintained by MONK. Elevate your gameplay today.</p>
 
-    <!-- EXECUTOR RAW UI -->
-    <div id="executor-ui">
-        <!-- Yahan raw loadstring dikhega -->
-        <span id="executor-code">loadstring(game:HttpGet("https://raw.githubusercontent.com/MANASMCPE/NovolineXMonK/refs/heads/main/ProtectedByMonKfuscate.lua"))()</span>
-    </div>
+      <div class="btn-group">
+        <button class="btn btn-primary" onclick="openSource()">
+          <i class="fas fa-code"></i> Open Source
+        </button>
+        <a href="/buy" class="btn btn-secondary">
+          <i class="fas fa-crown"></i> Buy Premium
+        </a>
+        <a href="/buy?monkz=1" class="btn btn-secondary">
+          <i class="fas fa-gem"></i> MONKzV1 Premium
+        </a>
+        <button class="btn btn-danger" onclick="redirectInstagram()">
+          <i class="fab fa-instagram"></i> Contact Admin
+        </button>
+      </div>
+    </section>
 
-    <script>
-        // Executor Detection Function
-        function isExecutor() {
-            try {
-                const ua = navigator.userAgent.toLowerCase();
-                const executors = [
-                    "roblox", "synapse", "krnl", "fluxus", "delta", "hydrogen",
-                    "electron", "codex", "novoline", "arceus", "wave", "sirhurt",
-                    "script-ware", "swift", "evon", "vega", "celery", "oxygen",
-                    "trigon", "solara", "xeno", "valyse", "jjsploit", "nihil"
-                ];
-                for (let i = 0; i < executors.length; i++) {
-                    if (ua.includes(executors[i])) return true;
-                }
+    <section class="grid" style="margin-top: 20px;">
+      <div class="card">
+        <div class="title"><i class="fas fa-shield-halved" style="color:var(--gold);"></i> Trusted Loader</div>
+        <p class="desc">All scripts run through our proprietary loader for maximum security and stability.</p>
+      </div>
+      <div class="card">
+        <div class="title"><i class="fas fa-bolt" style="color:var(--gold);"></i> Instant Updates</div>
+        <p class="desc">Scripts are updated regularly to ensure they work with the latest game versions.</p>
+      </div>
+      <div class="card">
+        <div class="title"><i class="fas fa-headset" style="color:var(--gold);"></i> 24/7 Support</div>
+        <p class="desc">Need help? Contact the admin directly via Instagram for fast support.</p>
+      </div>
+    </section>
+  </div>
 
-                const globals = [
-                    "getgenv", "syn", "http_request", "identifyexecutor",
-                    "getexecutorname", "getcustomasset", "readfile", "writefile",
-                    "hookfunction", "islclosure", "getrawmetatable"
-                ];
-                for (let j = 0; j < globals.length; j++) {
-                    if (typeof window[globals[j]] !== "undefined") return true;
-                }
-            } catch (e) {}
-            return false;
-        }
-
-        // Elements
-        const normalUI = document.getElementById("normal-ui");
-        const executorUI = document.getElementById("executor-ui");
-        const liquidBg = document.getElementById("liquidBg");
-        const copyBtn = document.getElementById("copy-btn");
-        const normalCode = document.getElementById("normal-code");
-        const executorCode = document.getElementById("executor-code");
-
-        // Check Executor
-        if (isExecutor()) {
-            // Agar Executor hai: Fancy UI hatao, sirf raw text dikhao
-            normalUI.style.display = "none";
-            liquidBg.style.display = "none";
-            executorUI.style.display = "block";
-            
-            // Text ko copy karne ke liye select karne ki zaroorat nahi, 
-            // executor usually DOM se text utha leta hai.
-        } else {
-            // Agar Normal user hai: Normal UI dikhao, Copy button chalao
-            copyBtn.addEventListener("click", () => {
-                const textToCopy = normalCode.textContent;
-
-                function success() {
-                    copyBtn.textContent = "Copied!";
-                    copyBtn.classList.add("copied");
-                    setTimeout(() => {
-                        copyBtn.textContent = "Copy Script";
-                        copyBtn.classList.remove("copied");
-                    }, 2000);
-                }
-
-                if (navigator.clipboard && window.isSecureContext) {
-                    navigator.clipboard.writeText(textToCopy).then(success).catch(() => fallbackCopy(textToCopy, success));
-                } else {
-                    fallbackCopy(textToCopy, success);
-                }
-            });
-        }
-
-        function fallbackCopy(text, callback) {
-            const textArea = document.createElement("textarea");
-            textArea.value = text;
-            document.body.appendChild(textArea);
-            textArea.select();
-            document.execCommand("copy");
-            document.body.removeChild(textArea);
-            callback();
-        }
-    </script>
+  <script src="script.js"></script>
+  <script>
+    function openSource() {
+      const loader = document.getElementById('loader');
+      loader.classList.add('active');
+      setTimeout(() => {
+        window.location.href = '/source';
+      }, 2500);
+    }
+  </script>
 </body>
 </html>
