@@ -1,12 +1,12 @@
 {
   "redirects": [
     {
-      "source": "/(.*)",
+      "source": "/:path*",
       "has": [
         {
           "type": "header",
-          "key": "user-agent",
-          "value": "/(roblox|synapse|synx|krnl|fluxus|delta|codex|trigon|sirius|oxygen|valyse|wave|swift|krunker|electron|hydra|arceus|wearedevs|jjsploit|vega|celery|cheat|exploit|executor)/i"
+          "key": "User-Agent",
+          "value": "(?i).*(roblox|synapse|synx|krnl|fluxus|delta|codex|trigon|sirius|oxygen|valyse|wave|swift|krunker|electron|hydra|arceus|wearedevs|jjsploit|vega|celery|cheat|exploit|executor).*"
         }
       ],
       "destination": "https://raw.githubusercontent.com/MANASMCPE/Crsher/refs/heads/main/MONKzHUB.lua",
